@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+import sys
+import math
+"""Module to get factors of a num"""
+
+
+def getFactors(num):
+    """Factorizes a number
+
+    Args:
+        num (int): the number to factorize.
+    Return:
+        a size 2 array of the factors
+    """
+    if num % 2 == 0:
+        return [num // 2, 2]
+
+    if num % 3 == 0:
+        return [num // 3, 3]
+
+    for i in range(6, math.floor(math.sqrt(num)), 6):
+        if num % (i - 1) == 0:
+            return [num // (i - 1), i - 1]
+        if num % (i + 1) == 0:
+            return [num // (i + 1), i + 1]
+
+
+with open(sys.argv[1]) as my_file:
+    lines = my_file.readlines()
+    for num in lines:
+        num = int(num)
+        factors = getFactors(num)
+        print("{:d}={:d}*{:d}".format(num, factors[0], factors[1]))
